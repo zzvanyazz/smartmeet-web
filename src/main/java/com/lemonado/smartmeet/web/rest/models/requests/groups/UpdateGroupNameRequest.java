@@ -3,10 +3,8 @@ package com.lemonado.smartmeet.web.rest.models.requests.groups;
 import lombok.Data;
 
 @Data
-public class UpdateGroupRequest {
+public class UpdateGroupNameRequest {
 
-    long id;
     String name;
-    String code;
 
 }

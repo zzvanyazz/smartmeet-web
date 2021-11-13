@@ -1,13 +1,20 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
+import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
+import com.lemonado.smartmeet.core.data.exceptions.group.InvalidGroupException;
+import com.lemonado.smartmeet.core.data.exceptions.group.UnsupportedGroupException;
 import com.lemonado.smartmeet.core.services.groups.GroupService;
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.web.rest.models.dto.mappings.GroupMapper;
 import com.lemonado.smartmeet.web.rest.models.requests.groups.CreateGroupRequest;
-import com.lemonado.smartmeet.web.rest.models.responses.Response;
+import com.lemonado.smartmeet.web.rest.models.requests.groups.UpdateGroupNameRequest;
+import com.lemonado.smartmeet.web.rest.services.CurrentUserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.NoSuchAlgorithmException;
 
 @RestController("/v1/groups")
 public class GroupController {
@@ -17,11 +24,45 @@ public class GroupController {
     private GroupService groupService;
 
     @Autowired
-    ;
+    private CurrentUserService currentUserService;
 
-    @PostMapping
-    public Response<?> createGroup(@RequestBody CreateGroupRequest createGroupRequest) {
-
+    @ApiOperation("Create new group")
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createGroup(@RequestBody CreateGroupRequest groupRequest)
+            throws UserNotFoundException, NoSuchAlgorithmException {
+        var user = currentUserService.getId();
+        var groupName = groupRequest.getName();
+        var groupModel = groupService.createGroup(user, groupName);
+        var groupDto = GroupMapper.toDto(groupModel);
+        return ResponseEntity.ok(groupDto);
     }
+
+    @ApiOperation("Update group name")
+    @PutMapping("/{groupId}")
+    public ResponseEntity<?> updateGroupName(@PathVariable long groupId,
+                                             @RequestBody UpdateGroupNameRequest groupRequest)
+            throws InvalidGroupException, UserNotFoundException, UnsupportedGroupException {
+        var userId = currentUserService.getId();
+        groupService.assertExistsInGroup(groupId, userId);
+
+        var groupName = groupRequest.getName();
+        var groupModel = groupService.updateGroupName(groupId, groupName);
+        var groupDto = GroupMapper.toDto(groupModel);
+        return ResponseEntity.ok(groupDto);
+    }
+
+    @ApiOperation("Update group code")
+    @PostMapping("/{groupId}")
+    public ResponseEntity<?> updateGroupCode(@PathVariable long groupId)
+            throws InvalidGroupException, UserNotFoundException, UnsupportedGroupException, NoSuchAlgorithmException {
+        var userId = currentUserService.getId();
+        groupService.assertExistsInGroup(groupId, userId);
+
+        var groupModel = groupService.updateGroupCode(groupId);
+        var groupDto = GroupMapper.toDto(groupModel);
+        return ResponseEntity.ok(groupDto);
+    }
+
+
 
 }
