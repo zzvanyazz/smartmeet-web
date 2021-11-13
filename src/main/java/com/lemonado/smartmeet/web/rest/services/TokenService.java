@@ -4,7 +4,7 @@ import com.lemonado.smartmeet.core.data.models.users.UserModel;
 import com.lemonado.smartmeet.web.rest.models.auth.InvalidTokenException;
 import com.lemonado.smartmeet.web.rest.models.auth.Token;
 import com.lemonado.smartmeet.web.rest.models.responses.AuthResponseData;
-import com.lemonado.smartmeet.web.rest.options.TokenOptions;
+import com.lemonado.smartmeet.web.rest.settings.TokenOptions;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;

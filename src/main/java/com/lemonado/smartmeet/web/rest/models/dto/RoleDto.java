@@ -1,13 +1,19 @@
 package com.lemonado.smartmeet.web.rest.models.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.OffsetDateTime;
 
 
-public record RoleDto(
-        long id,
-        String name,
-        String description,
-        OffsetDateTime createTimestamp,
-        OffsetDateTime updateTimestamp) {
+@Data
+@Builder(setterPrefix = "with", toBuilder = true)
+public class RoleDto {
+
+    private long id;
+    private String name;
+    private String description;
+    private OffsetDateTime createTimestamp;
+    private OffsetDateTime updateTimestamp;
 
 }

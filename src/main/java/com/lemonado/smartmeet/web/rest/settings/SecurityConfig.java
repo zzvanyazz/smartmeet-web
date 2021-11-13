@@ -1,6 +1,5 @@
-package com.lemonado.smartmeet.web.rest.configs;
+package com.lemonado.smartmeet.web.rest.settings;
 
-import com.lemonado.smartmeet.web.rest.filters.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

@@ -3,7 +3,7 @@ package com.lemonado.smartmeet.web.rest.controllers;
 
 import com.lemonado.smartmeet.core.services.users.RoleService;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
-import com.lemonado.smartmeet.web.rest.models.mappings.RoleMapper;
+import com.lemonado.smartmeet.web.rest.models.dto.mappings.RoleMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

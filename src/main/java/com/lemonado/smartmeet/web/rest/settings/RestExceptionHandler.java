@@ -1,4 +1,4 @@
-package com.lemonado.smartmeet.web.rest.handlers;
+package com.lemonado.smartmeet.web.rest.settings;
 
 import com.lemonado.smartmeet.core.data.exceptions.*;
 import com.lemonado.smartmeet.web.rest.models.auth.*;

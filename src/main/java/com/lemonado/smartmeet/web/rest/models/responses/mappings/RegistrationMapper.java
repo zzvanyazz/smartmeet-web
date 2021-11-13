@@ -1,4 +1,4 @@
-package com.lemonado.smartmeet.web.rest.models.mappings;
+package com.lemonado.smartmeet.web.rest.models.responses.mappings;
 
 import com.lemonado.smartmeet.core.data.exceptions.RegistrationProblemsException;
 import com.lemonado.smartmeet.web.rest.models.responses.LetterNotSentResponse;

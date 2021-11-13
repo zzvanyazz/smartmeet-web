@@ -1,12 +1,18 @@
 package com.lemonado.smartmeet.web.rest.models.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.OffsetDateTime;
 
-public record UserDto(
-        long id,
-        String username,
-        String email,
-        OffsetDateTime deleteTimestamp,
-        OffsetDateTime validTokenTimestamp) {
+@Data
+@Builder(setterPrefix = "with")
+public class UserDto {
+
+    private long id;
+    private String username;
+    private String email;
+    private OffsetDateTime deleteTimestamp;
+    private OffsetDateTime validTokenTimestamp;
 
 }

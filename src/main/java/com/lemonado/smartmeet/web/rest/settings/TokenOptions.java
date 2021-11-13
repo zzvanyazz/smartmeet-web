@@ -1,4 +1,4 @@
-package com.lemonado.smartmeet.web.rest.options;
+package com.lemonado.smartmeet.web.rest.settings;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -1,14 +1,13 @@
-package com.lemonado.smartmeet.web.rest.models.mappings;
+package com.lemonado.smartmeet.web.rest.models.dto.mappings;
 
 import com.lemonado.smartmeet.core.data.models.users.UserModel;
 import com.lemonado.smartmeet.core.data.models.users.builders.UserModelBuilder;
 import com.lemonado.smartmeet.web.rest.models.dto.UserDto;
-import com.lemonado.smartmeet.web.rest.models.dto.builders.UserDtoBuilder;
 
 public class UserMapper {
 
     public static UserDto toDto(UserModel userModel) {
-        return new UserDtoBuilder()
+        return UserDto.builder()
                 .withId(userModel.id())
                 .withUsername(userModel.username())
                 .withEmail(userModel.email())
@@ -17,13 +16,13 @@ public class UserMapper {
                 .build();
     }
 
-    public static UserModel toEntity(UserDto userDto) {
+    public static UserModel toModel(UserDto userDto) {
         return new UserModelBuilder()
-                .withId(userDto.id())
-                .withUsername(userDto.username())
-                .withEmail(userDto.email())
-                .withDeleteTimestamp(userDto.deleteTimestamp())
-                .withValidTokenTimestamp(userDto.validTokenTimestamp())
+                .withId(userDto.getId())
+                .withUsername(userDto.getUsername())
+                .withEmail(userDto.getEmail())
+                .withDeleteTimestamp(userDto.getDeleteTimestamp())
+                .withValidTokenTimestamp(userDto.getValidTokenTimestamp())
                 .build();
 
     }

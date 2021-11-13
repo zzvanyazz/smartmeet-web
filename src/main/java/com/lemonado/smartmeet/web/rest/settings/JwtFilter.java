@@ -1,4 +1,4 @@
-package com.lemonado.smartmeet.web.rest.filters;
+package com.lemonado.smartmeet.web.rest.settings;
 
 import com.lemonado.smartmeet.web.rest.services.VerificationAuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
