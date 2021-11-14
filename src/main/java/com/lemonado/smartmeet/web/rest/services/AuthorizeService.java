@@ -25,7 +25,7 @@ public class AuthorizeService {
 
     public AuthResponseData authenticate(AuthRequest request)
             throws LoginFailedException {
-        var user = userService.login(request.username(), request.password());
+        var user = userService.login(request.getUsername(), request.getPassword());
 
         return tokenService.createAuthData(user);
     }
