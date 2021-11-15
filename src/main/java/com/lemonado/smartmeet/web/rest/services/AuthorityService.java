@@ -4,8 +4,8 @@ import com.lemonado.smartmeet.core.data.exceptions.RoleNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.models.roles.RoleModel;
 import com.lemonado.smartmeet.core.data.models.users.UserModel;
-import com.lemonado.smartmeet.core.services.users.RoleService;
-import com.lemonado.smartmeet.core.services.users.UserRolesService;
+import com.lemonado.smartmeet.core.services.impl.users.RoleServiceImpl;
+import com.lemonado.smartmeet.core.services.impl.users.UserRolesServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @Service
 public class AuthorityService {
     @Autowired
-    private RoleService roleService;
+    private RoleServiceImpl roleService;
 
     @Autowired
-    private UserRolesService userRolesService;
+    private UserRolesServiceImpl userRolesService;
 
     private final Map<Long, String> authorityPerRoleId = new HashMap<>();
 

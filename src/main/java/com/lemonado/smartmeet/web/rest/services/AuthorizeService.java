@@ -1,7 +1,7 @@
 package com.lemonado.smartmeet.web.rest.services;
 
 import com.lemonado.smartmeet.core.data.exceptions.LoginFailedException;
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.InvalidTokenException;
 import com.lemonado.smartmeet.web.rest.models.auth.TokenBlockedException;
 import com.lemonado.smartmeet.web.rest.models.requests.auth.AuthRequest;
@@ -17,7 +17,7 @@ import javax.mail.AuthenticationFailedException;
 public class AuthorizeService {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private TokenService tokenService;

@@ -1,6 +1,6 @@
 package com.lemonado.smartmeet.web.rest.services;
 
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class VerificationAuthorizationService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private TokenService tokenService;

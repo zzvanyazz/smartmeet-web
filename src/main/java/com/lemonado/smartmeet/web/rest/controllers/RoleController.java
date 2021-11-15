@@ -1,7 +1,7 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
 
-import com.lemonado.smartmeet.core.services.users.RoleService;
+import com.lemonado.smartmeet.core.services.impl.users.RoleServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.RoleMapper;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +21,7 @@ public class RoleController {
 
 
     @Autowired
-    private RoleService roleService;
+    private RoleServiceImpl roleService;
 
 
     @ApiOperation("List roles.")

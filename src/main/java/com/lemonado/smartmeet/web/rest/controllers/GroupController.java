@@ -3,8 +3,7 @@ package com.lemonado.smartmeet.web.rest.controllers;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.group.InvalidGroupException;
 import com.lemonado.smartmeet.core.data.exceptions.group.UnsupportedGroupException;
-import com.lemonado.smartmeet.core.services.groups.GroupService;
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.core.services.impl.groups.GroupServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.GroupMapper;
 import com.lemonado.smartmeet.web.rest.models.requests.groups.CreateGroupRequest;
 import com.lemonado.smartmeet.web.rest.models.requests.groups.UpdateGroupNameRequest;
@@ -16,18 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController("/v1/groups")
 public class GroupController {
 
 
     @Autowired
-    private GroupService groupService;
-
-    @Autowired
-    private UserService userService;
+    private GroupServiceImpl groupService;
 
     @Autowired
     private CurrentUserService currentUserService;
@@ -49,7 +43,7 @@ public class GroupController {
                                              @RequestBody UpdateGroupNameRequest groupRequest)
             throws InvalidGroupException, UnsupportedGroupException {
         var userId = currentUserService.getId();
-        groupService.assertExistsInGroup(groupId, userId);
+        groupService.assertCreator(groupId, userId);
 
         var groupName = groupRequest.getName();
         var groupModel = groupService.updateGroupName(groupId, groupName);
@@ -67,24 +61,6 @@ public class GroupController {
         var groupModel = groupService.updateGroupCode(groupId);
         var groupDto = GroupMapper.toDto(groupModel);
         return ResponseEntity.ok(groupDto);
-    }
-
-    @ApiOperation("Delete users")
-    @DeleteMapping("/{groupId}/users")
-    public ResponseEntity<?> removeUsers(@PathVariable long groupId,
-                                         @RequestParam Set<Long> userIds)
-            throws InvalidGroupException, UserNotFoundException, UnsupportedGroupException {
-
-        var userId = currentUserService.getId();
-        groupService.assertCreator(groupId, userId);
-
-        userIds = userIds.stream()
-                .filter(id -> groupService.existsInGroup(groupId, id))
-                .collect(Collectors.toSet());
-
-
-
-
     }
 
 

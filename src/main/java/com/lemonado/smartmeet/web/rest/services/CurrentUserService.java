@@ -2,7 +2,7 @@ package com.lemonado.smartmeet.web.rest.services;
 
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.models.users.UserModel;
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import com.lemonado.smartmeet.web.rest.models.auth.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 public final class CurrentUserService {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     public UserModel getUser() throws UserNotFoundException {
         return userService.getUser(getId());

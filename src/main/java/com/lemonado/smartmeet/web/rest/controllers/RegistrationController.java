@@ -3,7 +3,7 @@ package com.lemonado.smartmeet.web.rest.controllers;
 
 import com.lemonado.smartmeet.core.data.exceptions.*;
 import com.lemonado.smartmeet.core.data.models.registration.RegistrationModel;
-import com.lemonado.smartmeet.core.services.users.RegistrationService;
+import com.lemonado.smartmeet.core.services.impl.users.RegistrationServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import com.lemonado.smartmeet.web.rest.models.responses.mappings.RegistrationMapper;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.UserMapper;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
 
     @Autowired
-    private RegistrationService registrationService;
+    private RegistrationServiceImpl registrationService;
 
     @ApiOperation("Start user registration.")
     @PostMapping(value = "/start", produces = MediaType.APPLICATION_JSON_VALUE)

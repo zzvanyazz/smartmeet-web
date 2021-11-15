@@ -3,8 +3,8 @@ package com.lemonado.smartmeet.web.rest.controllers;
 import com.lemonado.smartmeet.core.data.exceptions.ActionOnAdminRoleException;
 import com.lemonado.smartmeet.core.data.exceptions.RoleNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
-import com.lemonado.smartmeet.core.services.users.UserRolesService;
-import com.lemonado.smartmeet.core.services.users.UserService;
+import com.lemonado.smartmeet.core.services.impl.users.UserRolesServiceImpl;
+import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.RoleMapper;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.UserMapper;
@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
-    private UserRolesService userRolesService;
+    private UserRolesServiceImpl userRolesService;
 
 
     @ApiOperation("Get user info.")
