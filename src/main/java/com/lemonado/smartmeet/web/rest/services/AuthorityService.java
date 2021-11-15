@@ -39,7 +39,7 @@ public class AuthorityService {
 
     @Transactional(readOnly = true)
     public List<String> getAuthorityNames(long userId) throws UserNotFoundException {
-        return userRolesService.streamUserRoles(userId)
+        return userRolesService.getUserRoles(userId)
                 .stream()
                 .map(x -> findAuthority(x.roleId()))
                 .filter(Optional::isPresent)

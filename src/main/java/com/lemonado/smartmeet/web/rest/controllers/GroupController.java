@@ -1,5 +1,6 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
+import com.lemonado.smartmeet.core.data.exceptions.CanNotCreateUserException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.group.InvalidGroupException;
 import com.lemonado.smartmeet.core.data.exceptions.group.UnsupportedGroupException;
@@ -29,7 +30,7 @@ public class GroupController {
     @ApiOperation("Create new group")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createGroup(@RequestBody CreateGroupRequest groupRequest)
-            throws UserNotFoundException, NoSuchAlgorithmException {
+            throws UserNotFoundException, CanNotCreateUserException {
         var user = currentUserService.getId();
         var groupName = groupRequest.getName();
         var groupModel = groupService.createGroup(user, groupName);
@@ -41,7 +42,7 @@ public class GroupController {
     @PutMapping("/{groupId}")
     public ResponseEntity<?> updateGroupName(@PathVariable long groupId,
                                              @RequestBody UpdateGroupNameRequest groupRequest)
-            throws InvalidGroupException, UnsupportedGroupException {
+            throws InvalidGroupException, UnsupportedGroupException, UserNotFoundException {
         var userId = currentUserService.getId();
         groupService.assertCreator(groupId, userId);
 
@@ -54,7 +55,7 @@ public class GroupController {
     @ApiOperation("Update group code")
     @PostMapping("/{groupId}")
     public ResponseEntity<?> updateGroupCode(@PathVariable long groupId)
-            throws InvalidGroupException, UnsupportedGroupException, NoSuchAlgorithmException, UserNotFoundException {
+            throws InvalidGroupException, UnsupportedGroupException, UserNotFoundException, CanNotCreateUserException {
         var userId = currentUserService.getId();
         groupService.assertCreator(groupId, userId);
 

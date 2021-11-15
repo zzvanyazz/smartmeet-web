@@ -51,7 +51,7 @@ public class UserController {
     @ApiOperation("Get user roles")
     @GetMapping(value = "/{userId}/roles", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRoles(@PathVariable long userId) throws UserNotFoundException, RoleNotFoundException {
-        var roles = userRolesService.getUserRoles(userId);
+        var roles = userRolesService.getRoles(userId);
         var rolesDtos = roles.stream().map(RoleMapper::toDto).collect(Collectors.toList());
         return ResponseEntityFactory.createOk(rolesDtos);
     }

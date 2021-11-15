@@ -1,5 +1,8 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
+import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
+import com.lemonado.smartmeet.core.data.exceptions.group.InvalidGroupException;
+import com.lemonado.smartmeet.core.data.exceptions.group.UnsupportedGroupException;
 import com.lemonado.smartmeet.core.services.impl.groups.GroupServiceImpl;
 import com.lemonado.smartmeet.core.services.impl.groups.GroupUsersServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.GroupMapper;
@@ -26,7 +29,8 @@ public class UserGroupController {
     @ApiOperation("Delete users")
     @DeleteMapping("/{groupId}/users")
     public ResponseEntity<?> removeUsers(@PathVariable long groupId,
-                                         @RequestParam Set<Long> userIds) {
+                                         @RequestParam Set<Long> userIds)
+            throws UserNotFoundException, InvalidGroupException, UnsupportedGroupException {
 
         var userId = currentUserService.getId();
         groupService.assertCreator(groupId, userId);
@@ -39,7 +43,8 @@ public class UserGroupController {
     @ApiOperation("Delete users")
     @PostMapping("/{groupId}/users")
     public ResponseEntity<?> renewUsers(@PathVariable long groupId,
-                                        @RequestParam Set<Long> userIds) {
+                                        @RequestParam Set<Long> userIds)
+            throws UserNotFoundException, InvalidGroupException, UnsupportedGroupException {
 
         var userId = currentUserService.getId();
         groupService.assertCreator(groupId, userId);
@@ -51,7 +56,8 @@ public class UserGroupController {
 
     @ApiOperation("Register by code")
     @PostMapping("/users")
-    public ResponseEntity<?> registerByCode(@RequestParam String code) {
+    public ResponseEntity<?> registerByCode(@RequestParam String code)
+            throws UserNotFoundException, InvalidGroupException {
         var userId = currentUserService.getId();
         var group = groupUsersService.registerUserToGroup(userId, code);
         return ResponseEntity.ok(group);

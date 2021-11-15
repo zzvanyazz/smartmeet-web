@@ -57,4 +57,13 @@ public final class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<?> handleException(Exception exception, Response<?> response, HttpStatus status, WebRequest request) {
         return handleExceptionInternal(exception, response, new HttpHeaders(), status, request);
     }
+
+    @ExceptionHandler(value = {
+            CanNotCreateGroupException.class,
+    })
+    protected ResponseEntity<?> handleInternalException(Exception exception, WebRequest request) {
+        var response = ResponseFactory.createConflict(exception);
+
+        return handleException(exception, response, HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
 }
