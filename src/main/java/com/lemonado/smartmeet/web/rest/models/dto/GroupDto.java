@@ -13,6 +13,6 @@ public class GroupDto {
     private String name;
     private UserModel creator;
     private String code;
-    private Set<UserModel> users;
+    private Set<GroupUserDto> users;
 
 }
