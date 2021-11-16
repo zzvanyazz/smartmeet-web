@@ -1,7 +1,12 @@
 package com.lemonado.smartmeet.web.rest.settings;
 
+import com.lemonado.smartmeet.web.rest.models.auth.Principal;
+import com.lemonado.smartmeet.web.rest.models.auth.exception.InvalidTokenException;
+import com.lemonado.smartmeet.web.rest.services.FirebaseAuthService;
 import com.lemonado.smartmeet.web.rest.services.VerificationAuthorizationService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -23,23 +28,37 @@ public final class JwtFilter extends GenericFilterBean {
     @Autowired
     private VerificationAuthorizationService authService;
 
+    @Autowired
+    private FirebaseAuthService firebaseAuthService;
+
+    @SneakyThrows
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest,
+                         ServletResponse servletResponse,
+                         FilterChain filterChain) {
 
         authenticate((HttpServletRequest) servletRequest);
-
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
 
-    private void authenticate(HttpServletRequest request) {
-        extractToken(request)
-                .flatMap(token -> authService.authenticate(token))
-                .ifPresent(principal -> {
-                    var auth = new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());
+    private void authenticate(HttpServletRequest request) throws InvalidTokenException {
+        var principal = extractToken(request)
+                .flatMap(this::toPrincipal)
+                .orElseThrow(InvalidTokenException::new);
 
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                });
+        var auth = new UsernamePasswordAuthenticationToken(
+                principal,
+                "",
+                principal.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+
+    private Optional<Principal> toPrincipal(String token) {
+        var principal = authService.authenticate(token);
+        if (principal.isPresent())
+            return principal;
+        return firebaseAuthService.authenticate(token);
     }
 
 

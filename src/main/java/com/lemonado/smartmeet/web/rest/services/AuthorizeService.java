@@ -2,8 +2,8 @@ package com.lemonado.smartmeet.web.rest.services;
 
 import com.lemonado.smartmeet.core.data.exceptions.LoginFailedException;
 import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
-import com.lemonado.smartmeet.web.rest.models.auth.InvalidTokenException;
-import com.lemonado.smartmeet.web.rest.models.auth.TokenBlockedException;
+import com.lemonado.smartmeet.web.rest.models.auth.exception.InvalidTokenException;
+import com.lemonado.smartmeet.web.rest.models.auth.exception.TokenBlockedException;
 import com.lemonado.smartmeet.web.rest.models.requests.auth.AuthRequest;
 import com.lemonado.smartmeet.web.rest.models.requests.auth.RefreshTokenRequest;
 import com.lemonado.smartmeet.web.rest.models.responses.AuthResponseData;
@@ -25,7 +25,7 @@ public class AuthorizeService {
 
     public AuthResponseData authenticate(AuthRequest request)
             throws LoginFailedException {
-        var user = userService.login(request.getUsername(), request.getPassword());
+        var user = userService.login(request.getEmail(), request.getPassword());
 
         return tokenService.createAuthData(user);
     }

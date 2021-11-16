@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class AuthRequest {
     @NotBlank
     @Size(max = 128)
-    private String username;
+    private String email;
     @NotEmpty
     private String password;
 

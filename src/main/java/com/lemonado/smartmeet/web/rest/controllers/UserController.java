@@ -42,6 +42,7 @@ public class UserController {
 
     @ApiOperation("Get users info.")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> getUsers() {
         var userModels = userService.getUsers();
         var userDto = userModels.stream().map(UserMapper::toDto).collect(Collectors.toList());
@@ -50,6 +51,7 @@ public class UserController {
 
     @ApiOperation("Get user roles")
     @GetMapping(value = "/{userId}/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> getRoles(@PathVariable long userId) throws UserNotFoundException, RoleNotFoundException {
         var roles = userRolesService.getRoles(userId);
         var rolesDtos = roles.stream().map(RoleMapper::toDto).collect(Collectors.toList());
@@ -73,7 +75,6 @@ public class UserController {
 
     @ApiOperation("Remove assign user role")
     @PostMapping(value = "/{userId}/remove-assign", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> removeAssignRole(
             @PathVariable long userId,
             @RequestBody @Validated AssignUserRoleRequest request,

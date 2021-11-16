@@ -1,8 +1,8 @@
 package com.lemonado.smartmeet.web.rest.settings;
 
 import com.lemonado.smartmeet.core.data.exceptions.*;
-import com.lemonado.smartmeet.web.rest.models.auth.InvalidTokenException;
-import com.lemonado.smartmeet.web.rest.models.auth.TokenBlockedException;
+import com.lemonado.smartmeet.web.rest.models.auth.exception.InvalidTokenException;
+import com.lemonado.smartmeet.web.rest.models.auth.exception.TokenBlockedException;
 import com.lemonado.smartmeet.web.rest.models.responses.Response;
 import com.lemonado.smartmeet.web.rest.models.responses.ResponseFactory;
 import org.springframework.http.HttpHeaders;

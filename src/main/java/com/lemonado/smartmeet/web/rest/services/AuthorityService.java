@@ -4,7 +4,6 @@ import com.lemonado.smartmeet.core.data.exceptions.RoleNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.models.roles.RoleModel;
 import com.lemonado.smartmeet.core.data.models.users.UserModel;
-import com.lemonado.smartmeet.core.services.impl.users.RoleServiceImpl;
 import com.lemonado.smartmeet.core.services.impl.users.UserRolesServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import org.springframework.beans.factory.annotation.Autowired;
