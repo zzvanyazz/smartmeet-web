@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
-@RestController("/v1/groups")
+@RestController
+@RequestMapping("/v1/groups")
 public class UserGroupController {
 
     @Autowired

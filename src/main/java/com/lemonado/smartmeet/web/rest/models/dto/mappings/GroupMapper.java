@@ -1,7 +1,6 @@
 package com.lemonado.smartmeet.web.rest.models.dto.mappings;
 
 import com.lemonado.smartmeet.core.data.models.group.GroupModel;
-import com.lemonado.smartmeet.core.data.models.group.GroupUserModel;
 import com.lemonado.smartmeet.web.rest.models.dto.GroupDto;
 
 import java.util.stream.Collectors;

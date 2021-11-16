@@ -22,14 +22,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class AuthorityService {
+    private final Map<Long, String> authorityPerRoleId = new HashMap<>();
     @Autowired
     private RoleServiceImpl roleService;
-
     @Autowired
     private UserRolesServiceImpl userRolesService;
-
-    private final Map<Long, String> authorityPerRoleId = new HashMap<>();
-
 
     @PostConstruct
     private void postConstruct() throws RoleNotFoundException {

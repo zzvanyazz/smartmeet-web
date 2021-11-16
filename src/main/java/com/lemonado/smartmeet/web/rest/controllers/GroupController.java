@@ -1,7 +1,6 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
 import com.lemonado.smartmeet.core.data.exceptions.CanNotCreateGroupException;
-import com.lemonado.smartmeet.core.data.exceptions.CanNotCreateUserException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.group.GroupNameAlreadyExists;
 import com.lemonado.smartmeet.core.data.exceptions.group.InvalidGroupException;
@@ -17,7 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/v1/groups")
+@RestController
+@RequestMapping("/v1/groups")
 public class GroupController {
 
 
