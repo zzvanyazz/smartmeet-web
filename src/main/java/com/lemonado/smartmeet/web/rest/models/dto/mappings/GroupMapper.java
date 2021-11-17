@@ -11,12 +11,15 @@ public class GroupMapper {
         GroupDto groupDto = new GroupDto();
         groupDto.setId(groupModel.id());
         groupDto.setName(groupModel.name());
-        groupDto.setCreator(groupModel.creator());
+        groupDto.setCreator(UserMapper.toDto(groupModel.creator()));
         groupDto.setCode(groupModel.code());
-        groupDto.setUsers(groupModel.users()
-                .stream()
-                .map(GroupUserMapper::toDto)
-                .collect(Collectors.toSet()));
+        var users = groupModel.users();
+        if (users != null){
+            groupDto.setUsers(users
+                    .stream()
+                    .map(GroupUserMapper::toDto)
+                    .collect(Collectors.toSet()));
+        }
         return groupDto;
     }
 

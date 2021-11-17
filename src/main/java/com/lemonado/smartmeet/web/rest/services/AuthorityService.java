@@ -4,6 +4,7 @@ import com.lemonado.smartmeet.core.data.exceptions.RoleNotFoundException;
 import com.lemonado.smartmeet.core.data.exceptions.UserNotFoundException;
 import com.lemonado.smartmeet.core.data.models.roles.RoleModel;
 import com.lemonado.smartmeet.core.data.models.users.UserModel;
+import com.lemonado.smartmeet.core.services.impl.users.RoleServiceImpl;
 import com.lemonado.smartmeet.core.services.impl.users.UserRolesServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AuthorityService {
         addMapping(AuthorityRole.MANAGER, RoleModel.MANAGER);
     }
 
-    @Transactional(readOnly = true)
+
     public List<String> getAuthorityNames(long userId) throws UserNotFoundException {
         return userRolesService.getUserRoles(userId)
                 .stream()
@@ -43,7 +44,6 @@ public class AuthorityService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public List<GrantedAuthority> getAuthorities(UserModel user) throws UserNotFoundException {
         return getAuthorityNames(user.id())
                 .stream()

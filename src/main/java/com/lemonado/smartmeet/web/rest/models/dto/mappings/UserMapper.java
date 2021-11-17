@@ -11,8 +11,6 @@ public class UserMapper {
                 .withId(userModel.id())
                 .withUsername(userModel.username())
                 .withEmail(userModel.email())
-                .withDeleteTimestamp(userModel.deleteTimestamp())
-                .withValidTokenTimestamp(userModel.validTokenTimestamp())
                 .build();
     }
 
@@ -21,8 +19,6 @@ public class UserMapper {
                 .withId(userDto.getId())
                 .withUsername(userDto.getUsername())
                 .withEmail(userDto.getEmail())
-                .withDeleteTimestamp(userDto.getDeleteTimestamp())
-                .withValidTokenTimestamp(userDto.getValidTokenTimestamp())
                 .build();
 
     }

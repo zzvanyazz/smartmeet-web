@@ -1,6 +1,7 @@
 package com.lemonado.smartmeet.web.rest.settings;
 
 import com.lemonado.smartmeet.core.data.exceptions.*;
+import com.lemonado.smartmeet.core.data.exceptions.group.GroupNameAlreadyExists;
 import com.lemonado.smartmeet.web.rest.models.auth.exception.InvalidTokenException;
 import com.lemonado.smartmeet.web.rest.models.auth.exception.TokenBlockedException;
 import com.lemonado.smartmeet.web.rest.models.responses.Response;
@@ -48,6 +49,7 @@ public final class RestExceptionHandler extends ResponseEntityExceptionHandler {
             UserAlreadyExistsException.class,
             UserIsBlockedException.class,
             ActionOnAdminRoleException.class,
+            GroupNameAlreadyExists.class,
     })
     protected ResponseEntity<?> handleConflict(Exception exception, WebRequest request) {
         var response = ResponseFactory.createConflict(exception);

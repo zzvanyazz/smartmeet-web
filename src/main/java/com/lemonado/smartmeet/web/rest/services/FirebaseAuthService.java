@@ -1,7 +1,10 @@
 package com.lemonado.smartmeet.web.rest.services;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.lemonado.smartmeet.core.data.exceptions.CanNotCreateUserException;
 import com.lemonado.smartmeet.core.data.exceptions.LoginFailedException;
 import com.lemonado.smartmeet.core.data.exceptions.UserAlreadyExistsException;
@@ -13,13 +16,15 @@ import com.lemonado.smartmeet.web.rest.models.responses.AuthResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class FirebaseAuthService {
 
-    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth firebaseAuth;
 
     @Autowired
     private UserService userService;
@@ -30,10 +35,23 @@ public class FirebaseAuthService {
     @Autowired
     private AuthorityService authorityService;
 
+    @PostConstruct
+    private void postConstruct() throws IOException {
+        FileInputStream refreshToken = new FileInputStream("src/main/resources/smartmeet-f182a-firebase-adminsdk-536q4-2df091ced0.json");
+
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(refreshToken))
+                .build();
+
+        FirebaseApp.initializeApp(options);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
     public Optional<Principal> authenticate(String token) {
         try {
-            var firebaseToken = Tasks.await(firebaseAuth.verifyIdToken(token));
-            var user = userService.findActiveUser(firebaseToken.getEmail());
+            var firebaseToken = firebaseAuth.verifyIdToken(token);
+            var user = userService.findActiveUserByEmail(firebaseToken.getEmail());
 
             if (firebaseToken.isEmailVerified()) {
                 var authorities = authorityService.getAuthorities(user);
@@ -50,9 +68,9 @@ public class FirebaseAuthService {
     }
 
     public AuthResponseData sigUp(String token, String password)
-            throws ExecutionException, InterruptedException, CanNotCreateUserException, LoginFailedException {
+            throws CanNotCreateUserException, LoginFailedException, FirebaseAuthException {
         var passwordHash = passwordEncoder.encode(password);
-        var firebaseToken = Tasks.await(firebaseAuth.verifyIdToken(token));
+        var firebaseToken = firebaseAuth.verifyIdToken(token);
         var userModel = UserModelBuilder.builder()
                 .withUsername(firebaseToken.getName())
                 .withEmail(firebaseToken.getEmail())

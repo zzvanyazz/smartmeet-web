@@ -10,7 +10,7 @@ public class GroupDto {
 
     private long id;
     private String name;
-    private UserModel creator;
+    private UserDto creator;
     private String code;
     private Set<GroupUserDto> users;
 

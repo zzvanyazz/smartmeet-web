@@ -1,7 +1,7 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
 
-import com.lemonado.smartmeet.web.rest.services.RoleServiceImpl;
+import com.lemonado.smartmeet.core.services.impl.users.RoleServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.RoleMapper;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

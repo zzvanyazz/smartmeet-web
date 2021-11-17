@@ -1,5 +1,6 @@
 package com.lemonado.smartmeet.web.rest.controllers;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.lemonado.smartmeet.core.data.exceptions.CanNotCreateUserException;
 import com.lemonado.smartmeet.core.data.exceptions.LoginFailedException;
 import com.lemonado.smartmeet.web.rest.models.requests.auth.FirebaseLoginRequest;
@@ -21,7 +22,8 @@ public class FirebaseAuthController {
     private FirebaseAuthService authService;
 
     @PostMapping
-    public ResponseEntity<?> loginByFirebase(@RequestBody FirebaseLoginRequest request) throws CanNotCreateUserException, LoginFailedException, ExecutionException, InterruptedException {
+    public ResponseEntity<?> loginByFirebase(@RequestBody FirebaseLoginRequest request)
+            throws CanNotCreateUserException, LoginFailedException, FirebaseAuthException {
         var authResponse = authService.sigUp(request.token(), request.password());
         return ResponseEntity.ok(authResponse);
     }

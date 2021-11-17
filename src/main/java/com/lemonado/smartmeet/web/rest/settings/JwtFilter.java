@@ -6,18 +6,15 @@ import com.lemonado.smartmeet.web.rest.services.FirebaseAuthService;
 import com.lemonado.smartmeet.web.rest.services.VerificationAuthorizationService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Optional;
 
 @Component
@@ -42,16 +39,16 @@ public final class JwtFilter extends GenericFilterBean {
     }
 
 
-    private void authenticate(HttpServletRequest request) throws InvalidTokenException {
-        var principal = extractToken(request)
+    private void authenticate(HttpServletRequest request) {
+        extractToken(request)
                 .flatMap(this::toPrincipal)
-                .orElseThrow(InvalidTokenException::new);
-
-        var auth = new UsernamePasswordAuthenticationToken(
-                principal,
-                "",
-                principal.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
+                .ifPresent(principal -> {
+                    var auth = new UsernamePasswordAuthenticationToken(
+                            principal,
+                            "",
+                            principal.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                });
     }
 
     private Optional<Principal> toPrincipal(String token) {
