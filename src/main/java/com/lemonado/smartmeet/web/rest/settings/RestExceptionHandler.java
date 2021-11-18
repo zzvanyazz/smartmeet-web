@@ -2,6 +2,7 @@ package com.lemonado.smartmeet.web.rest.settings;
 
 import com.lemonado.smartmeet.core.data.exceptions.*;
 import com.lemonado.smartmeet.core.data.exceptions.group.GroupNameAlreadyExists;
+import com.lemonado.smartmeet.core.data.exceptions.timeline.InvalidTimeLineException;
 import com.lemonado.smartmeet.web.rest.models.auth.exception.InvalidTokenException;
 import com.lemonado.smartmeet.web.rest.models.auth.exception.TokenBlockedException;
 import com.lemonado.smartmeet.web.rest.models.responses.Response;
@@ -56,6 +57,17 @@ public final class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleException(exception, response, HttpStatus.CONFLICT, request);
     }
+
+
+    @ExceptionHandler(value = {
+            InvalidTimeLineException.class,
+    })
+    protected ResponseEntity<?> handleBadRequestException(Exception exception, WebRequest request) {
+        var response = ResponseFactory.createConflict(exception);
+
+        return handleException(exception, response, HttpStatus.BAD_REQUEST, request);
+    }
+
 
     private ResponseEntity<?> handleException(Exception exception, Response<?> response, HttpStatus status, WebRequest request) {
         return handleExceptionInternal(exception, response, new HttpHeaders(), status, request);

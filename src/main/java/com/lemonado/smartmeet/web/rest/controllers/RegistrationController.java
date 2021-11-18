@@ -26,7 +26,7 @@ public class RegistrationController {
     @Autowired
     private RegistrationServiceImpl registrationService;
 
-    @ApiOperation("Start user registration.")
+    @ApiOperation("Start userId registration.")
     @PostMapping(value = "/start", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> startUsersRegistration(@RequestBody StartUsersRegistration registration)

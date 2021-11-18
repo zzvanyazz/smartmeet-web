@@ -27,7 +27,7 @@ public class GroupController {
     @Autowired
     private CurrentUserService currentUserService;
 
-    @ApiOperation("Create new group")
+    @ApiOperation("Create new groupId")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createGroup(@RequestBody CreateGroupRequest groupRequest)
             throws UserNotFoundException, CanNotCreateGroupException, GroupNameAlreadyExists {
@@ -38,7 +38,7 @@ public class GroupController {
         return ResponseEntity.ok(groupDto);
     }
 
-    @ApiOperation("Update group name")
+    @ApiOperation("Update groupId name")
     @PutMapping("/{groupId}")
     public ResponseEntity<?> updateGroupName(@PathVariable long groupId,
                                              @RequestBody UpdateGroupNameRequest groupRequest)
@@ -52,7 +52,7 @@ public class GroupController {
         return ResponseEntity.ok(groupDto);
     }
 
-    @ApiOperation("Update group code")
+    @ApiOperation("Update groupId code")
     @PostMapping("/{groupId}")
     public ResponseEntity<?> updateGroupCode(@PathVariable long groupId)
             throws InvalidGroupException, UnsupportedGroupException, UserNotFoundException, CanNotCreateGroupException {

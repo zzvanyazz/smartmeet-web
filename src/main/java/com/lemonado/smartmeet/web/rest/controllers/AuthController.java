@@ -27,7 +27,7 @@ public class AuthController {
     private AuthorizeService authService;
 
 
-    @ApiOperation("Authenticate user.")
+    @ApiOperation("Authenticate userId.")
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(
             @Validated @RequestBody AuthRequest request,

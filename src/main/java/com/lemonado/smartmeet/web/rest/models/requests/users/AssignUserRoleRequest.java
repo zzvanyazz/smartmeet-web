@@ -1,4 +1,4 @@
-package com.lemonado.smartmeet.web.rest.models.requests;
+package com.lemonado.smartmeet.web.rest.models.requests.users;
 
 import javax.validation.constraints.NotNull;
 

@@ -8,7 +8,7 @@ import com.lemonado.smartmeet.core.services.impl.users.UserServiceImpl;
 import com.lemonado.smartmeet.web.rest.models.auth.AuthorityRole;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.RoleMapper;
 import com.lemonado.smartmeet.web.rest.models.dto.mappings.UserMapper;
-import com.lemonado.smartmeet.web.rest.models.requests.AssignUserRoleRequest;
+import com.lemonado.smartmeet.web.rest.models.requests.users.AssignUserRoleRequest;
 import com.lemonado.smartmeet.web.rest.models.responses.ResponseEntityFactory;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserController {
     private UserRolesServiceImpl userRolesService;
 
 
-    @ApiOperation("Get user info.")
+    @ApiOperation("Get userId info.")
     @GetMapping(value = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUser(@PathVariable long userId) throws Exception {
         var userModel = userService.getUser(userId);
@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @ApiOperation("Get user roles")
+    @ApiOperation("Get userId roles")
     @GetMapping(value = "/{userId}/roles", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> getRoles(@PathVariable long userId) throws UserNotFoundException, RoleNotFoundException {
@@ -58,7 +58,7 @@ public class UserController {
         return ResponseEntityFactory.createOk(rolesDtos);
     }
 
-    @ApiOperation("Assign user role")
+    @ApiOperation("Assign userId role")
     @PostMapping(value = "/{userId}/assign", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured({AuthorityRole.ADMIN})
     public ResponseEntity<?> assignRole(
@@ -73,7 +73,7 @@ public class UserController {
         return ResponseEntityFactory.createOk();
     }
 
-    @ApiOperation("Remove assign user role")
+    @ApiOperation("Remove assign userId role")
     @PostMapping(value = "/{userId}/remove-assign", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> removeAssignRole(
             @PathVariable long userId,
